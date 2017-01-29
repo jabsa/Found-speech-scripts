@@ -16,8 +16,8 @@ for speaker in `cat ${SPEAKER_LIST}`; do
     echo "Processing speaker_id : $speaker"
     SOURCE_DIR=$LIBRI_SPEECH_DIR/$SUBSET/$speaker
     cat `find $SOURCE_DIR/* -name "*.txt"`>temp_translist
-    cat temp_translist|awk '{print $1}'|sed 's+^+'"$SUBSET"'+g'|sed 's+^+( +g' > temp_names
-    cat temp_translist|awk '{for (i=2; i<=NF; i++) printf $i" "; printf "\n"}' |tr '[:upper:]' '[:lower:]'|sed 's+^ +\"+g'|sed 's+$+" )+g' >temp_data
+    cat temp_translist|awk '{print $1}'|sed 's+^+'"${SUBSET}_"'+g'|sed 's+^+( +g' > temp_names
+    cat temp_translist|awk '{for (i=2; i<=NF; i++) printf $i" "; printf "\n"}' |tr '[:upper:]' '[:lower:]'|sed 's+^+\"+g'|sed 's+ $+" )+g' >temp_data
 
     paste -d " " temp_names temp_data >$DEST_DIR/tdd.$speaker
     rm -f temp_*
